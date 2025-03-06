@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.senai.sp.jandira.imc.screens.HomeScreen
+import br.senai.sp.jandira.imc.screens.UserDataScreen
 import br.senai.sp.jandira.imc.ui.theme.IMCTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,6 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             IMCTheme {
                 HomeScreen()
+                UserDataScreen()
             }
         }
     }
