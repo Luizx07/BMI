@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">BMI</string>
     <string name="logo">Application logo</string>
+    <string name="genM">Genre Male</string>
+    <string name="genF">Genre Female</string>
     <string name="welcome">Welcome!</string>
     <string name="your_name">What\'s your name?</string>
     <string name="insert">enter your name</string>
     <string name="Next">Next</string>
+    <string name="hi">hi!</string>
+    <string name="genreM">Male</string>
+    <string name="genreF">Female</string>
 </resources>
