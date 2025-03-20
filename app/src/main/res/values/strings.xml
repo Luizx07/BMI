@@ -5,9 +5,22 @@
     <string name="genF">Genre Female</string>
     <string name="welcome">Welcome!</string>
     <string name="your_name">What\'s your name?</string>
-    <string name="insert">enter your name</string>
+    <string name="insert">Enter your name</string>
     <string name="Next">Next</string>
-    <string name="hi">hi!</string>
+    <string name="hi">Hi!</string>
     <string name="genreM">Male</string>
     <string name="genreF">Female</string>
+    <string name="Age">Insert your age</string>
+    <string name="weight">Your weight</string>
+    <string name="height">Your height</string>
+    <string name="calculate">Calculate</string>
+    <string name="BMIResult">Your BMI Result</string>
+    <string name="number">30,6</string>
+    <string name="Age2">Age</string>
+    <string name="weight2">Weight</string>
+    <string name="high">High</string>
+    <string name="number_Age">50</string>
+    <string name="number_Weight">97 Kg</string>
+    <string name="number_High">178 cm</string>
+    <string name="NewCalc">New Calculate</string>
 </resources>
