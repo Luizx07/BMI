@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.imc.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,12 +13,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AssistWalker
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -27,10 +32,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +52,18 @@ fun HomeScreen(navegacao: NavHostController) {
     var nameState = remember {
         mutableStateOf("")
     }
+
+    var isErrorState = remember {
+        mutableStateOf(false)
+    }
+
+    //abrir ou criar um arquivo SharedPreferences
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    // colocar o arquivo em modo de edição
+    val editor = userFile.edit()
 
     Box(
         modifier = Modifier
@@ -114,33 +133,60 @@ fun HomeScreen(navegacao: NavHostController) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                 )
-                TextField(
+                OutlinedTextField(
                     value = nameState.value,
-                    onValueChange = {
+                    onValueChange = { it ->
                         nameState.value = it
                     },
-                    label = { Text("digite seu nome") },
-                    textStyle = TextStyle(color = Color.White,
-                        fontWeight = FontWeight.Bold),
-                    modifier = Modifier
-                        .padding(top = 10.dp)
-                        .background(color = Color.Black),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType =  KeyboardType.Text,
-                        capitalization = KeyboardCapitalization.Words
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedTextColor = Color.White
                     ),
+                    modifier = Modifier
+                        .padding(top = 25.dp)
+                        .fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    label = { Text(text = stringResource(R.string.insert)) },
                     trailingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Edit,
-                            contentDescription = "",
-                            tint = Color(0xFFAF1515)
-                        )
+                        if (isErrorState.value){
+                            Icon(
+                                imageVector = Icons.Default.ErrorOutline,
+                                contentDescription = "",
+                                tint = Color.Red
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.Edit,
+                                contentDescription = "",
+                                tint = Color(color = 0xFFAF1515)
+                            )
+                        }
+                    },
+
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next
+                    ),
+                    textStyle = TextStyle(fontSize = 24.sp),
+                    isError = isErrorState.value,
+                    supportingText = {
+                            if (isErrorState.value){
+                                Text(
+                                   text = stringResource(R.string.nameError)
+                                )
+                            }
+
                     }
                 )
             }
                 Button(
                     onClick = {
-                        navegacao.navigate(route = "dados")
+                        if (nameState.value.isEmpty()) {
+                            isErrorState.value = true
+                        } else {
+                            editor.putString("user_name", nameState.value)
+                            editor.apply()
+                            navegacao.navigate(route = "dados")
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(
                         Color(0xFF621313)

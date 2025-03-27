@@ -7,7 +7,7 @@
     <string name="your_name">What\'s your name?</string>
     <string name="insert">Enter your name</string>
     <string name="Next">Next</string>
-    <string name="hi">Hi!</string>
+    <string name="hi">Hi</string>
     <string name="genreM">Male</string>
     <string name="genreF">Female</string>
     <string name="Age">Insert your age</string>
@@ -23,4 +23,5 @@
     <string name="number_Weight">97 Kg</string>
     <string name="number_High">178 cm</string>
     <string name="NewCalc">New Calculate</string>
+    <string name="nameError">The user name is required!</string>
 </resources>

@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.imc.screens
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,6 +31,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -49,22 +52,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.imc.R
 
 @Composable
-fun UserDataScreen(modifier: Modifier = Modifier) {
+fun UserDataScreen(navegacao: NavHostController) {
 
-    var nomeAge = remember {
+    var ageState = remember {
         mutableStateOf(value = "")
     }
 
-    var nomeWeight = remember {
+    var weightState = remember {
         mutableStateOf(value = "")
     }
 
-    var nomeHeight = remember {
+    var heightState = remember {
         mutableStateOf(value = "")
     }
+
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+    val editor = userFile.edit()
+
+    val userName = userFile.getString("user_name", "User name not found!")
 
     Box(
         modifier = Modifier
@@ -80,7 +92,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
             )
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
@@ -88,16 +100,16 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
             Text(
                 text = stringResource(
                     R.string.hi
-                ),
-                modifier = modifier
+                ) + ", $userName!",
+                modifier = Modifier
                     .padding(top = 45.dp)
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 10.dp),
                 color = Color.White,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold
             )
             Card(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .padding(top = 35.dp),
@@ -110,21 +122,21 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                 )
             ) {
                 Column(
-                    modifier = modifier
+                    modifier = Modifier
                         .fillMaxSize()
                         .padding(25.dp),
                     verticalArrangement = Arrangement.SpaceBetween,
                     horizontalAlignment = Alignment.End,
                 ) {
                     Card(
-                        modifier = modifier
+                        modifier = Modifier
                             .fillMaxWidth(),
                         colors = CardDefaults.cardColors(
                             containerColor = Color.Black
                         )
                     ) {
                         Row(
-                            modifier = modifier
+                            modifier = Modifier
                                 .padding(top = 20.dp)
                                 .fillMaxWidth()
                                 .background(Color.Black),
@@ -132,10 +144,10 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
 
                         ) {
                             Column(
-                                modifier = modifier
+                                modifier = Modifier
                             ) {
                                 Card(
-                                    modifier = modifier
+                                    modifier = Modifier
                                         .size(170.dp)
                                         .padding(horizontal = 20.dp),
                                     colors = CardDefaults.cardColors(
@@ -151,7 +163,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                         ),
                                     )
                                     Button(
-                                        modifier = modifier
+                                        modifier = Modifier
                                             .padding(2.dp)
                                             .width(210.dp),
                                         onClick = {},
@@ -168,7 +180,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                 }
                             }
                             Card(
-                                modifier = modifier
+                                modifier = Modifier
                                     .size(170.dp)
                                     .padding(horizontal = 20.dp),
                                 colors = CardDefaults.cardColors(
@@ -184,7 +196,7 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                     ),
                                 )
                                 Button(
-                                    modifier = modifier
+                                    modifier = Modifier
                                         .padding(2.dp)
                                         .width(210.dp),
                                     onClick = {},
@@ -207,10 +219,13 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                 .background(color = Color.Black)
                         ) {
                             OutlinedTextField(
-                                value = nomeAge.value,
-                                onValueChange = { nome ->
-                                    nomeAge.value = nome
+                                value = ageState.value,
+                                onValueChange = { it ->
+                                    ageState.value = it
                                 },
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color.White
+                                ),
                                 modifier = Modifier
                                     .padding(top = 50.dp)
                                     .fillMaxWidth(),
@@ -230,10 +245,13 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                 textStyle = TextStyle(fontSize = 24.sp)
                             )
                             OutlinedTextField(
-                                value = nomeWeight.value,
-                                onValueChange = { nome ->
-                                    nomeWeight.value = nome
+                                value = weightState.value,
+                                onValueChange = { it ->
+                                    weightState.value = it
                                 },
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color.White
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 12.dp),
@@ -253,10 +271,13 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                                 textStyle = TextStyle(fontSize = 24.sp)
                             )
                             OutlinedTextField(
-                                value = nomeHeight.value,
-                                onValueChange = { nome ->
-                                    nomeHeight.value = nome
+                                value = heightState.value,
+                                onValueChange = { it ->
+                                    heightState.value = it
                                 },
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedTextColor = Color.White
+                                ),
                                 modifier = Modifier
                                     .fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp),
@@ -276,7 +297,13 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
                             )
                         }
                         Button(
-                            onClick = {},
+                            onClick = {
+                                editor.putInt("user_age", ageState.value.toInt())
+                                editor.putFloat("user_weight", weightState.value.toFloat())
+                                editor.putFloat("user_height", heightState.value.toFloat())
+                                editor.apply()
+                                navegacao.navigate(route = "result")
+                            },
                             modifier = Modifier
                                 .padding(top = 80.dp)
                                 .height(60.dp),
@@ -303,5 +330,5 @@ fun UserDataScreen(modifier: Modifier = Modifier) {
 @Preview(showSystemUi =  true)
 @Composable
 private fun UserDataScreenPreview() {
-    UserDataScreen()
+    //UserDataScreen()
 }

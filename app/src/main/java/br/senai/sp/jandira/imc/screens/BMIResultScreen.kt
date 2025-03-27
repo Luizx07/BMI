@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.imc.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,17 +29,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.imc.R
 
 
 @Composable
 fun BMIResultScreen() {
+
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("userFile", Context.MODE_PRIVATE)
+
+
+
+    val userAge = userFile.getString("user_age", "0")
+    val userWeight = userFile.getString("user_weight", "0")
+    val userHeight = userFile.getString("user_height", "0")
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -108,7 +122,7 @@ fun BMIResultScreen() {
                             )
                         }
                     }
-                    Column(
+                     Column(
                         modifier = Modifier
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -198,7 +212,7 @@ fun BMIResultScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(300.dp)
-                            .background(Color.Red)
+                            .background(color = Color(0xFF621313))
                     ){
 
                     }
@@ -230,5 +244,5 @@ fun BMIResultScreen() {
 @Preview(showSystemUi =  true)
 @Composable
 private fun BMIResultScreenPreview() {
-    BMIResultScreen()
+    //BMIResultScreen()
 }
