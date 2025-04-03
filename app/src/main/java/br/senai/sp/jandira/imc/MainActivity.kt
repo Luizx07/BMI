@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                 ){
                     composable(route = "home"){ HomeScreen(navegacao) }
                     composable(route = "dados"){ UserDataScreen(navegacao) }
-                    composable(route = "result"){ BMIResultScreen() }
+                    composable(route = "result"){ BMIResultScreen(navegacao) }
 
                 }
             }

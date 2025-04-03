@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,7 +42,7 @@ import br.senai.sp.jandira.imc.R
 
 
 @Composable
-fun BMIResultScreen() {
+fun BMIResultScreen(navegacao: NavHostController) {
 
     val context = LocalContext.current
     val userFile = context
@@ -49,9 +50,9 @@ fun BMIResultScreen() {
 
 
 
-    val userAge = userFile.getString("user_age", "0")
-    val userWeight = userFile.getString("user_weight", "0")
-    val userHeight = userFile.getString("user_height", "0")
+    val userAge = userFile.getInt("user_age",0)
+    val userWeight = userFile.getFloat("user_weight",0.0f)
+    val userHeight = userFile.getFloat("user_height",0.0f)
 
     Box(
         modifier = Modifier
@@ -160,7 +161,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.number_Age),
+                                    text = "$userAge",
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -180,7 +181,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.number_Weight),
+                                    text = "$userWeight kg",
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -200,7 +201,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.number_High),
+                                    text = String.format(java.util.Locale.getDefault(), format = "%.2f", userHeight),
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -218,13 +219,16 @@ fun BMIResultScreen() {
                     }
                     HorizontalDivider()
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navegacao.navigate(route = "home")
+                        },
                         modifier = Modifier
                             .height(60.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(color = 0xFF621313)
                         ),
                         shape = RoundedCornerShape(16.dp),
+
                     ) {
                         Text(
                             modifier = Modifier
