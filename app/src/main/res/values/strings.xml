@@ -23,11 +23,17 @@
     <string name="number_Weight">97 Kg</string>
     <string name="number_High">178 cm</string>
     <string name="NewCalc">New Calculate</string>
-    <string name="obesity1">You have</string>
-    <string name="obesity2">The user name is required!</string>
-    <string name="obesity3">The user name is required!</string>
-    <string name=""></string>
-    <string name=""></string>
-    <string name=""></string>
-    <string name=""></string>
+    <string name="obesity1">You have Class I Obesity!</string>
+    <string name="obesity2">You have Class II Obesity!</string>
+    <string name="obesity3">You have Class III Obesity!</string>
+    <string name="normal">You have normal body weight</string>
+    <string name="under_weight">You are low your ideal weight!</string>
+    <string name="over_weight">You are slighty overweight</string>
+    <string name="underWeight">Under weight</string>
+    <string name="norma">Normal</string>
+    <string name="over">Over weight</string>
+    <string name="obesi1">Obesity 1</string>
+    <string name="obesi2">Obesity 2</string>
+    <string name="obesi3">Obesity 3</string>
+    <string name="nameError">error name</string>
 </resources>
