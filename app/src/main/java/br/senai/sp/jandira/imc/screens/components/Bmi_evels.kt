@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BmiLevel(
-    bulletColor: Color = Color.LightGray,
-    leftText : String = "",
-    rightText : String = "",
-    isFilled : Boolean = false
+    bulletColor: Color,
+    leftText : String,
+    rightText : String,
+    isFilled : Boolean
 ){
 
         Row(
@@ -77,5 +77,5 @@ fun BmiLevel(
 @Preview(showSystemUi =  true)
 @Composable
 private fun ResultPreview() {
-    BmiLevel()
+    //BmiLevel()
 }
